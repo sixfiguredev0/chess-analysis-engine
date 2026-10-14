@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "Chess Analysis Engine",
+  "version": "4.7.0",
+  "description": "Live board analysis for analysis and study boards and for games against computer opponents. Completely inert during live games against humans.",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://chess.com/*",
+    "https://www.chess.com/*",
+    "https://lichess.org/*",
+    "https://chess-api.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Chess Analysis Engine",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "128": "icon.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chess.com/*",
+        "https://www.chess.com/*",
+        "https://lichess.org/*"
+      ],
+      "js": [
+        "appSettings.js",
+        "engineController.js",
+        "moveSelectionPolicy.js",
+        "autoMoveController.js",
+        "boardAdapter.js",
+        "app.js",
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "128": "icon.png"
+  }
+}

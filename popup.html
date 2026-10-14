@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Chess Analysis Engine</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand-wrap">
+        <div class="logo">♞</div>
+        <div>
+          <div class="brand">Chess Analysis<span> Engine</span></div>
+          <div class="eyebrow">LIVE BOARD ANALYSIS</div>
+        </div>
+      </div>
+      <div id="statusDot" class="status-dot" aria-label="Extension status"></div>
+    </header>
+
+    <section class="status-card">
+      <div class="eyebrow">CURRENT MODE</div>
+      <div class="status-main" id="modeLabel">Waiting</div>
+      <div class="status-meta">
+        <span id="siteLabel">Detecting board…</span>
+        <span id="lastResult">Ready</span>
+      </div>
+    </section>
+
+    <section class="control-card compact">
+      <div class="row">
+        <div class="control-copy">
+          <div class="title">Live analysis</div>
+          <div class="hint">Reads the current board and shows the engine line.</div>
+        </div>
+        <label class="switch" aria-label="Enable live analysis">
+          <input id="enabled" type="checkbox">
+          <span></span>
+        </label>
+      </div>
+    </section>
+
+    <section class="control-card">
+      <div class="section-head">
+        <div>
+          <div class="title">Target playing strength</div>
+          <div class="hint">Approximate playing-strength profile.</div>
+        </div>
+        <div class="value-pill" id="eloValue">1800</div>
+      </div>
+      <input id="elo" class="range" type="range" min="800" max="2400" step="100" aria-label="Target playing strength">
+      <div class="scale"><span>800</span><span>1600</span><span>2400</span></div>
+    </section>
+
+    <section class="control-card">
+      <div class="row">
+        <div class="control-copy">
+          <div class="title">Move automation</div>
+          <div class="hint">Available only in supported non-rated study/analysis workflows.</div>
+        </div>
+        <label class="switch" aria-label="Enable move automation">
+          <input id="autoplay" type="checkbox">
+          <span></span>
+        </label>
+      </div>
+      <div class="subtle-note">Live rated-game move submission is disabled in this build.</div>
+    </section>
+
+    <section class="control-card">
+      <div class="section-head">
+        <div>
+          <div class="title">Thinking time before automation</div>
+          <div class="hint">Randomized delay in milliseconds before a queued move is sent.</div>
+        </div>
+        <div class="value-pill" id="minDelayValue">300–4000 ms</div>
+      </div>
+
+      <div class="section-head subcontrol">
+        <div><div class="title">Minimum thinking time</div></div>
+        <div class="value-pill" id="minDelayLabel">300 ms</div>
+      </div>
+      <input id="minDelay" class="range" type="range" min="100" max="10000" step="50" aria-label="Minimum thinking time in milliseconds">
+      <div class="scale"><span>100 ms</span><span>5 s</span><span>10 s</span></div>
+
+      <div class="section-head subcontrol">
+        <div><div class="title">Maximum thinking time</div></div>
+        <div class="value-pill" id="maxDelayLabel">4000 ms</div>
+      </div>
+      <input id="maxDelay" class="range" type="range" min="100" max="10000" step="50" aria-label="Maximum thinking time in milliseconds">
+      <div class="scale"><span>100 ms</span><span>5 s</span><span>10 s</span></div>
+    </section>
+
+    <section class="control-card">
+      <div class="row">
+        <div class="control-copy">
+          <div class="title">Imperfect-move simulation</div>
+          <div class="hint">Uses your move-selection policy on bot games and supported analysis/study positions.</div>
+        </div>
+        <label class="switch" aria-label="Enable imperfect move simulation">
+          <input id="imperfectMoves" type="checkbox">
+          <span></span>
+        </label>
+      </div>
+
+      <div class="subsection" id="weakControls">
+        <div class="section-head subcontrol">
+          <div><div class="title">Minimum moves between weak moves</div></div>
+          <div class="value-pill" id="minWeakValue">8</div>
+        </div>
+        <input id="minWeakInterval" class="range" type="range" min="1" max="50" step="1" aria-label="Minimum moves between weak moves">
+        <div class="scale"><span>1</span><span>25</span><span>50</span></div>
+
+        <div class="section-head subcontrol">
+          <div><div class="title">Maximum moves between weak moves</div></div>
+          <div class="value-pill" id="maxWeakValue">20</div>
+        </div>
+        <input id="maxWeakInterval" class="range" type="range" min="1" max="100" step="1" aria-label="Maximum moves between weak moves">
+        <div class="scale"><span>1</span><span>50</span><span>100</span></div>
+      </div>
+    </section>
+
+    <section class="control-card">
+      <div class="title">Presentation</div>
+      <div class="checks">
+        <label><input id="showArrow" type="checkbox"><span>Show best-move arrow</span></label>
+        <label><input id="showPanel" type="checkbox"><span>Show floating engine panel</span></label>
+      </div>
+    </section>
+
+    <section class="control-card">
+      <div class="section-head">
+        <div>
+          <div class="title">Turn detection</div>
+          <div class="hint">Automatic detection uses board state, move highlights, clocks and history.</div>
+        </div>
+      </div>
+      <select id="turnOverride" aria-label="Turn detection mode">
+        <option value="auto">Auto detect</option>
+        <option value="w">White to move</option>
+        <option value="b">Black to move</option>
+      </select>
+    </section>
+
+    <footer>
+      <span id="version">v4.7.0</span>
+      <span>Stockfish</span>
+    </footer>
+  </main>
+  <script src="appSettings.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
